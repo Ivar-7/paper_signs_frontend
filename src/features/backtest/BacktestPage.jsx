@@ -8,8 +8,8 @@ import { Spinner } from "../../shared/ui/Spinner.jsx";
 import { motion } from "motion/react";
 import { Play } from "lucide-react";
 
-const pct = (n) => (typeof n === "number" ? `${(n * 100).toFixed(2)}%` : "�");
-const num = (n, dp = 2) => (typeof n === "number" ? n.toFixed(dp) : "�");
+const pct = (n) => (typeof n === "number" ? `${(n * 100).toFixed(2)}%` : "-");
+const num = (n, dp = 2) => (typeof n === "number" ? n.toFixed(dp) : "-");
 
 const PERIOD_LABELS = { dev: "Development", validation: "Validation", oos: "Out-of-Sample" };
 
@@ -38,7 +38,7 @@ export default function BacktestPage() {
               ? <Spinner className="border-white border-t-white/30 size-3.5" />
               : <Play className="size-3.5" aria-hidden="true" />
             }
-            {runner.running ? "Running�" : "Run All"}
+            {runner.running ? "Running-" : "Run All"}
           </button>
         }
       />
@@ -52,7 +52,7 @@ export default function BacktestPage() {
             animate={{ opacity: 1, y: 0 }}
             className="rounded-xl border border-[--color-success]/30 bg-[--color-success]/5 p-4 text-sm text-[--color-success]"
           >
-            Backtest complete � {runner.result.results?.length ?? 0} period(s) run.
+            Backtest complete - {runner.result.results?.length ?? 0} period(s) run.
           </motion.div>
         )}
 
@@ -90,11 +90,11 @@ export default function BacktestPage() {
                     ["Sortino",      num(r.sortino)],
                     ["Profit Factor",num(r.profit_factor)],
                     ["Win Rate",     pct(r.win_rate)],
-                    ["Total Trades", r.total_trades ?? "�"],
+                    ["Total Trades", r.total_trades ?? "-"],
                     ["Avg Win",      pct(r.avg_win)],
                     ["Avg Loss",     pct(r.avg_loss)],
-                    ["Avg Hold",     r.avg_holding_days != null ? `${num(r.avg_holding_days, 0)}d` : "�"],
-                    ["Final Equity", r.final_equity != null ? r.final_equity.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "�"],
+                    ["Avg Hold",     r.avg_holding_days != null ? `${num(r.avg_holding_days, 0)}d` : "-"],
+                    ["Final Equity", r.final_equity != null ? r.final_equity.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }) : "-"],
                   ].map(([label, val]) => (
                     <div key={label}>
                       <p className="text-[10px] text-[--color-muted] uppercase tracking-widest">{label}</p>

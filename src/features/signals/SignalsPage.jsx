@@ -8,7 +8,7 @@ import { Spinner } from "../../shared/ui/Spinner.jsx";
 import { motion } from "motion/react";
 import { RefreshCw } from "lucide-react";
 
-const fmt2 = (n) => (typeof n === "number" ? n.toFixed(2) : "�");
+const fmt2 = (n) => (typeof n === "number" ? n.toFixed(2) : "-");
 
 export default function SignalsPage() {
   const { data, loading, error, refetch } = useSignals();
@@ -69,19 +69,19 @@ export default function SignalsPage() {
                       <td className="py-2.5 text-right">{fmt2(s.atr20)}</td>
                       <td className="py-2.5 text-right">
                         <Badge variant={s.entry_signal ? "success" : "muted"}>
-                          {s.entry_signal ? "YES" : "�"}
+                          {s.entry_signal ? "YES" : "-"}
                         </Badge>
                       </td>
                       <td className="py-2.5 text-right">
                         <Badge variant={s.exit_signal ? "danger" : "muted"}>
-                          {s.exit_signal ? "YES" : "�"}
+                          {s.exit_signal ? "YES" : "-"}
                         </Badge>
                       </td>
-                      <td className="py-2.5 text-right">{s.suggested_shares ?? "�"}</td>
+                      <td className="py-2.5 text-right">{s.suggested_shares ?? "-"}</td>
                       <td className="py-2.5 text-right">
                         {s.suggested_cost != null
                           ? s.suggested_cost.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 })
-                          : "�"}
+                          : "-"}
                       </td>
                     </tr>
                   ))}

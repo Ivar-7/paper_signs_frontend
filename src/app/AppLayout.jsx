@@ -16,7 +16,7 @@ const NAV_ITEMS = [
 ];
 
 /**
- * Shell layout � sidebar nav + page outlet.
+ * Shell layout - sidebar nav + page outlet.
  */
 export function AppLayout() {
   return (

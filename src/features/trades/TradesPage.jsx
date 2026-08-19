@@ -11,7 +11,7 @@ import { motion } from "motion/react";
 const fmt = (n) =>
   typeof n === "number"
     ? n.toLocaleString("en-US", { style: "currency", currency: "USD" })
-    : "�";
+    : "-";
 
 export default function TradesPage() {
   const summary = useTradeSummary();
@@ -45,7 +45,7 @@ export default function TradesPage() {
             <input
               id="trades-symbol-filter"
               type="text"
-              placeholder="Symbol�"
+              placeholder="Symbol-"
               value={filters.symbol}
               onChange={(e) => setFilters((f) => ({ ...f, symbol: e.target.value.toUpperCase() }))}
               className="w-32 rounded-lg border border-[--color-border] bg-[--color-surface-3] px-3 py-1.5 text-sm focus:border-[--color-accent] outline-none transition-colors"
@@ -92,7 +92,7 @@ export default function TradesPage() {
                       <td className="py-2.5 text-right">
                         {t.pnl != null
                           ? <Badge variant={t.pnl >= 0 ? "success" : "danger"}>{fmt(t.pnl)}</Badge>
-                          : <span className="text-[--color-muted]">�</span>
+                          : <span className="text-[--color-muted]">-</span>
                         }
                       </td>
                     </tr>

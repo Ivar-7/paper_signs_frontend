@@ -10,7 +10,7 @@ const SignalsPage   = lazy(() => import("../features/signals/SignalsPage.jsx"));
 const BacktestPage  = lazy(() => import("../features/backtest/BacktestPage.jsx"));
 
 /**
- * Root application provider � sets up routing and lazy page loading.
+ * Root application provider - sets up routing and lazy page loading.
  */
 export function AppProvider() {
   return (

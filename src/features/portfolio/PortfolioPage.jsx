@@ -11,10 +11,10 @@ import { motion } from "motion/react";
 const fmt = (n) =>
   typeof n === "number"
     ? n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 })
-    : "�";
+    : "-";
 
 const pct = (n) =>
-  typeof n === "number" ? `${n >= 0 ? "+" : ""}${n.toFixed(2)}%` : "�";
+  typeof n === "number" ? `${n >= 0 ? "+" : ""}${n.toFixed(2)}%` : "-";
 
 export default function PortfolioPage() {
   const portfolio  = usePortfolio();
@@ -90,7 +90,7 @@ export default function PortfolioPage() {
                       <td className="py-2.5 font-semibold text-[--color-accent]">{p.symbol}</td>
                       <td className="py-2.5 text-right">{p.shares}</td>
                       <td className="py-2.5 text-right">{fmt(p.avg_entry_price)}</td>
-                      <td className="py-2.5 text-right">{p.current_price != null ? fmt(p.current_price) : "�"}</td>
+                      <td className="py-2.5 text-right">{p.current_price != null ? fmt(p.current_price) : "-"}</td>
                       <td className="py-2.5 text-right">{fmt(p.market_value)}</td>
                       <td className="py-2.5 text-right">
                         <Badge variant={(p.unrealized_pnl ?? 0) >= 0 ? "success" : "danger"}>
