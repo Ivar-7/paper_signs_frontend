@@ -206,7 +206,7 @@ export function AnalysisDrawer({ isOpen, onClose, symbol, onOpenTrade }) {
                     <div className="flex-1">
                       <p className="text-xs font-bold text-[--color-text]">4. Risk-Adjusted Sizing</p>
                       <p className="text-[11px] text-[--color-muted] mt-0.5">
-                        Suggested: {data.suggested_shares} shares (~${data.suggested_cost?.toLocaleString()}) with 0.5% max risk.
+                        Suggested: {data.suggested_shares} shares (~${data.suggested_cost?.toLocaleString()}) with 1.0% max risk.
                       </p>
                     </div>
                   </div>

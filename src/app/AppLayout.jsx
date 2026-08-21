@@ -124,7 +124,7 @@ export function AppLayout() {
           </div>
           <div className="flex items-center justify-between text-[11px] font-mono text-[--color-muted-dim] px-1">
             <span>Risk Model</span>
-            <span className="text-[--color-text] font-semibold">0.5% ATR20</span>
+            <span className="text-[--color-text] font-semibold">1.0% ATR20</span>
           </div>
 
           <button

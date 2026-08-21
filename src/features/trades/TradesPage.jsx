@@ -12,6 +12,29 @@ const fmt = (n) =>
     ? n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 })
     : "-";
 
+const fmtDateTime = (val) => {
+  if (!val) return "—";
+  const normalized = typeof val === "string" && (val.includes("T") || val.includes(" ")) ? val : `${val}T00:00:00`;
+  const d = new Date(normalized);
+  if (isNaN(d.getTime())) return String(val);
+  if (typeof val === "string" && (val.includes(":") || val.includes("T"))) {
+    return d.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    });
+  }
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
 export default function TradesPage() {
   const summary = useTradeSummary();
   const { data, loading, error, refetch, filters, setFilters } = useTrades();
@@ -36,7 +59,7 @@ export default function TradesPage() {
         }
       />
 
-      <div className="p-6 flex flex-col gap-6 max-w-7xl w-full mx-auto">
+      <div className="px-6 lg:px-8 py-6 flex flex-col gap-6 w-full">
         {/* Performance Statistics Grid */}
         {summary.data && (
           <motion.div
@@ -125,7 +148,7 @@ export default function TradesPage() {
               <table className="w-full text-left text-sm" aria-label="Trade execution history">
                 <thead>
                   <tr className="border-b border-[--color-border] bg-[--color-surface-3]/40 text-[--color-muted] text-[11px] font-mono uppercase tracking-wider">
-                    <th className="py-3.5 pl-6 font-semibold">Date</th>
+                    <th className="py-3.5 pl-6 font-semibold">Date / Time</th>
                     <th className="py-3.5 px-3 font-semibold">Instrument</th>
                     <th className="py-3.5 px-3 font-semibold">Action</th>
                     <th className="py-3.5 px-3 font-semibold text-right">Shares</th>
@@ -137,8 +160,8 @@ export default function TradesPage() {
                 <tbody className="divide-y divide-[--color-border]/40">
                   {data.map((t) => (
                     <tr key={t.id} className="hover:bg-[--color-surface-3]/60 transition-colors">
-                      <td className="py-4 pl-6 text-[--color-muted] font-mono text-xs">
-                        {t.trade_date}
+                      <td className="py-4 pl-6 text-[--color-muted] font-mono text-xs whitespace-nowrap">
+                        {fmtDateTime(t.created_at || t.trade_date)}
                       </td>
                       <td className="py-4 px-3 font-bold font-mono text-base text-[--color-text]">
                         {t.symbol}

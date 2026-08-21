@@ -16,6 +16,29 @@ const fmt = (n) =>
 const pct = (n) =>
   typeof n === "number" ? `${n >= 0 ? "+" : ""}${n.toFixed(2)}%` : "-";
 
+const fmtDateTime = (val) => {
+  if (!val) return "Live";
+  const normalized = val.includes("T") || val.includes(" ") ? val : `${val}T00:00:00`;
+  const d = new Date(normalized);
+  if (isNaN(d.getTime())) return val;
+  if (val.includes(":") || val.includes("T")) {
+    return d.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    });
+  }
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
 export default function PortfolioPage() {
   const { data, loading, error, refetch } = usePortfolio();
   const [closingSymbol, setClosingSymbol] = useState(null);
@@ -165,7 +188,7 @@ export default function PortfolioPage() {
                               {p.symbol}
                             </span>
                             <span className="text-[11px] text-[--color-muted-dim] font-mono">
-                              Entry: {p.entry_date || "Live"}
+                              Entry: {fmtDateTime(p.entry_date)}
                             </span>
                           </td>
                           <td className="py-4 px-3 text-right font-mono font-semibold text-[--color-text]">

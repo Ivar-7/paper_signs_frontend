@@ -27,7 +27,7 @@ export default function SignalsPage() {
         }
       />
 
-      <div className="p-6 flex flex-col gap-6 max-w-7xl w-full mx-auto">
+      <div className="px-6 lg:px-8 py-6 flex flex-col gap-6 w-full">
         <div className="rounded-2xl border border-[--color-border] bg-[--color-surface-2] overflow-hidden shadow-sm">
           <div className="p-4 border-b border-[--color-border] flex items-center justify-between bg-[--color-surface-3]/30">
             <div className="flex items-center gap-2">
