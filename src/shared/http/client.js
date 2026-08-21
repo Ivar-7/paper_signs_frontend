@@ -5,7 +5,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
  * Thin fetch wrapper - adds base URL, throws normalised errors.
  * @param {string} path
  * @param {RequestInit} [init]
- * @returns {Promise<unknown>}
+ * @returns {Promise<any>}
  */
 export async function apiFetch(path, init) {
   const res = await fetch(`${BASE_URL}${path}`, {
@@ -14,8 +14,17 @@ export async function apiFetch(path, init) {
   });
 
   if (!res.ok) {
-    const text = await res.text().catch(() => "Unknown error");
-    const err = new Error(text || res.statusText);
+    let errorMsg = res.statusText || "Request failed";
+    try {
+      const errorJson = await res.json();
+      if (errorJson && errorJson.detail) {
+        errorMsg = typeof errorJson.detail === "string" ? errorJson.detail : JSON.stringify(errorJson.detail);
+      }
+    } catch {
+      const text = await res.text().catch(() => "");
+      if (text) errorMsg = text;
+    }
+    const err = new Error(errorMsg);
     err.status = res.status;
     throw err;
   }
